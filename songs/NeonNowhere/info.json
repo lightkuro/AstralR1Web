@@ -1,0 +1,36 @@
+{
+  "format": "astral-runshot-song",
+  "version": 1,
+  "title": "Neon Nowhere",
+  "artist": "Astral Runshot (procedural demo)",
+  "mapper": "make_demo_content.py",
+  "audio": "song.ogg",
+  "cover": "cover.png",
+  "offset": 0.0,
+  "previewStart": 30.25,
+  "leadIn": 3.0,
+  "timing": [
+    {
+      "t": 0.25,
+      "bpm": 128.0,
+      "meter": 4
+    }
+  ],
+  "environment": "neon_city",
+  "source": {
+    "type": "original"
+  },
+  "charts": [
+    {
+      "name": "Normal",
+      "file": "normal.json",
+      "level": 4
+    },
+    {
+      "name": "Hard",
+      "file": "hard.json",
+      "level": 7
+    }
+  ],
+  "audioFallback": "song.m4a"
+}

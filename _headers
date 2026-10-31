@@ -1,0 +1,9 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/src/*
+  Cache-Control: public, max-age=300
+
+/songs/*
+  Cache-Control: public, max-age=86400

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Astral Web (alpha demo)</title>
+  <meta name="description" content="A rhythm shooter: run down a neon road and shoot the boxes on the beat.">
+  <meta name="theme-color" content="#05060d">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="view"></canvas>
+
+  <!-- In-run HUD -->
+  <div id="hud" hidden>
+    <div class="hud-top">
+      <div class="hud-score" id="hudScore">0</div>
+      <div class="hud-bars">
+        <div class="bar"><i id="hudProgress"></i></div>
+        <div class="bar health"><i id="hudHealth"></i></div>
+      </div>
+      <div class="hud-acc"><span id="hudAcc">101.00%</span><b id="hudRank">SSS+</b></div>
+    </div>
+    <div class="hud-combo" id="hudCombo"></div>
+    <div class="hud-count" id="hudCount"></div>
+    <div id="popups"></div>
+    <div class="damage" id="damage"></div>
+    <button class="hud-pause" id="hudPause" aria-label="Pause"><svg viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+  </div>
+  <div id="crosshair" hidden></div>
+
+  <!-- Menu -->
+  <main id="menu">
+    <header class="top">
+      <div class="logo" role="img" aria-label="Astral Web, alpha demo">
+        <span class="logo-art"><i class="shade"></i><i class="fill"></i></span>
+        <span class="logo-web">WEB</span><small>ALPHA DEMO</small>
+      </div>
+      <nav>
+        <a class="ghost" id="feedback" href="https://lightkuro.itch.io/astral-r1" target="_blank" rel="noopener">FEEDBACK</a>
+        <button class="ghost" id="openCredits">CREDITS</button>
+        <button class="ghost" id="openSettings">SETTINGS</button>
+      </nav>
+    </header>
+
+    <section class="songs">
+      <div class="song-column">
+        <div class="song-list" id="songList"></div>
+        <button class="add-song" id="addSong" title="Open a song folder">+</button>
+      </div>
+      <div class="song-detail" id="songDetail">
+        <div class="cover" id="detailCover"></div>
+        <div class="detail-body">
+          <h1 id="detailTitle">Loading songs...</h1>
+          <p class="artist" id="detailArtist"></p>
+          <div class="charts" id="detailCharts"></div>
+          <p class="best" id="detailBest"></p>
+          <div class="toggles">
+            <label><input type="checkbox" id="optAutoplay"> AUTOPLAY</label>
+            <label><input type="checkbox" id="optNoFail"> NO FAIL</label>
+          </div>
+          <div class="detail-actions">
+            <button class="play" id="playBtn" disabled>PLAY</button>
+            <button class="ghost" id="removeSong" hidden title="Remove this osu! map from this browser">REMOVE</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bottom">
+      <p class="keys">Turn and aim with the mouse &middot; shoot with click or <kbd>Z</kbd> <kbd>X</kbd> &middot; lanes <kbd>A</kbd> <kbd>D</kbd> &middot; <kbd>Esc</kbd> pause &middot; <kbd>R</kbd> retry</p>
+      <button class="ghost" id="importOsu" title="Convert an osu! beatmap (.osz), or drop one on the page">IMPORT OSU! MAP...</button>
+      <button class="ghost" id="openFolder">OPEN SONG FOLDER...</button>
+      <input type="file" id="folderInput" webkitdirectory multiple hidden>
+      <input type="file" id="osuInput" accept=".osz,.osu,audio/*,image/*" multiple hidden>
+    </footer>
+  </main>
+
+  <!-- Overlays -->
+  <div class="overlay" id="pause" hidden>
+    <div class="panel narrow">
+      <h2>PAUSED</h2>
+      <p class="hint" id="pauseHint" hidden>Click CONTINUE again to take the mouse back.</p>
+      <button class="play" id="pauseContinue">CONTINUE</button>
+      <button class="ghost wide" id="pauseSettings">SETTINGS</button>
+      <button class="ghost wide" id="pauseRetry">RETRY</button>
+      <button class="ghost wide" id="pauseQuit">QUIT</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="results" hidden>
+    <div class="panel">
+      <p class="res-song" id="resSong"></p>
+      <div class="res-rank" id="resRank">S</div>
+      <div class="res-acc" id="resAcc">0%</div>
+      <div class="res-grid" id="resGrid"></div>
+      <p class="res-note" id="resNote"></p>
+      <div class="row">
+        <button class="ghost wide" id="resBack">BACK</button>
+        <button class="play" id="resRetry">RETRY</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="settings" hidden>
+    <div class="panel settings-panel">
+      <h2>SETTINGS</h2>
+      <p class="hint" id="settingsNote" hidden>Target size and double / triple boxes change from the next run.</p>
+      <div id="settingsBody"></div>
+      <div class="row"><button class="play" id="closeSettings">DONE</button></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="credits" hidden>
+    <div class="panel">
+      <h2>CREDITS</h2>
+      <p><b>Astral Web</b> (alpha demo): a small browser version of the Unreal Engine game.</p>
+      <ul class="credits">
+        <li><b>Neon Nowhere</b> (song, charts, cover): made for Astral Runshot (procedural demo).</li>
+        <li><b>three.js</b> 0.169.0 by the three.js authors, MIT licence, loaded from jsDelivr.</li>
+        <li><b>ASTRAL logo</b> artwork: supplied by the project owner.</li>
+        <li>Sound effects are synthesized in the browser.</li>
+        <li>osu! maps you import are converted in your browser and stay on your device. They belong to their mappers and artists.</li>
+      </ul>
+      <div class="row"><button class="play" id="closeCredits">CLOSE</button></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="loading" hidden>
+    <div class="panel narrow"><p id="loadingText">Loading...</p><button class="ghost wide" id="loadingClose" hidden>BACK</button></div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
