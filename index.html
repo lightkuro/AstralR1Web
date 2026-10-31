@@ -46,6 +46,7 @@
         <span class="logo-web">WEB</span><small>ALPHA DEMO</small>
       </div>
       <nav>
+        <a class="beta" id="tryBeta" href="https://lightkuro.itch.io/astral-r1" target="_blank" rel="noopener">TRY ASTRALR1 BETA <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
         <a class="ghost" id="feedback" href="https://lightkuro.itch.io/astral-r1" target="_blank" rel="noopener">FEEDBACK</a>
         <button class="ghost" id="openCredits">CREDITS</button>
         <button class="ghost" id="openSettings">SETTINGS</button>
@@ -132,6 +133,24 @@
         <li>osu! maps you import are converted in your browser and stay on your device. They belong to their mappers and artists.</li>
       </ul>
       <div class="row"><button class="play" id="closeCredits">CLOSE</button></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="intro" hidden>
+    <div class="panel intro-panel" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+      <button class="intro-close" id="introClose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div class="intro-body">
+        <div class="intro-text">
+          <h2 id="introTitle">WELCOME TO ASTRAL WEB</h2>
+          <p>Astral Web is a functional, simplified web preview of the game.</p>
+          <p>For the full features and the best experience, check out the full game, <b>AstralR1</b>, on desktop.</p>
+        </div>
+        <div class="intro-side">
+          <img src="preview.jpg" alt="AstralR1 gameplay: shooting neon boxes down a glowing city tunnel" width="800" height="590">
+          <a class="beta" href="https://lightkuro.itch.io/astral-r1" target="_blank" rel="noopener">GET IT ON ITCH.IO <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+        </div>
+      </div>
+      <button class="play intro-continue" id="introContinue">CONTINUE</button>
     </div>
   </div>
 

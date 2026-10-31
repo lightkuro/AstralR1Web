@@ -6,3 +6,4 @@
 | `logo.png` | The ASTRAL logo artwork from Astral Runshot (`T_TitleAstral.png`), supplied by the project owner | Project-owned |
 | `songs/NeonNowhere/*` | Copy of Astral Runshot's demo song (`song.m4a` is an AAC copy of `song.ogg` made with FFmpeg, for Safari) | Project-owned |
 | Sound effects | Synthesized in the browser by `src/audio.js` (this project) | Project-owned |
+| `preview.jpg` | Gameplay screenshot of AstralR1 from the [itch.io page](https://lightkuro.itch.io/astral-r1), resized for the first-visit popup | Project-owned |

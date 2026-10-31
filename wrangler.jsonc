@@ -1,0 +1,14 @@
+{
+  "name": "astralr1web",
+  "compatibility_date": "2026-10-01",
+  // The site is plain static files served from the repo root (see .assetsignore).
+  "assets": {
+    "directory": "."
+  },
+  "routes": [
+    { "pattern": "astral.kurolight.dev", "custom_domain": true }
+  ],
+  // Needed by `wrangler preview` (preview builds of non-production branches). Empty means
+  // previews use the same settings as production.
+  "previews": {}
+}

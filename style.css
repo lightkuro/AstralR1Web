@@ -101,7 +101,7 @@ kbd {
 }
 
 .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.top nav { display: flex; gap: 8px; }
+.top nav { display: flex; gap: 8px; flex-wrap: wrap; }
 
 /* The game's ASTRAL artwork (white letters, tinted with the UI accent, deep shadow), then WEB. */
 .logo {
@@ -440,6 +440,50 @@ kbd {
   place-items: center;
 }
 .cross-preview svg { margin: 0 !important; }
+
+.beta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: var(--radius);
+  background: var(--accent2);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  box-shadow: 0 0 18px rgba(12, 151, 233, 0.4);
+  transition: box-shadow 0.15s;
+}
+.beta:hover { box-shadow: 0 0 28px rgba(12, 151, 233, 0.7); }
+.beta svg, .intro-close svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+/* First-visit popup: message on the left, preview and itch.io link on the right. */
+.intro-panel { position: relative; width: min(680px, 100%); padding-top: 48px; }
+.intro-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--dim);
+}
+.intro-close:hover { color: var(--text); background: rgba(255, 255, 255, 0.06); }
+.intro-close svg { width: 18px; height: 18px; }
+.intro-body { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; }
+.intro-text { display: flex; flex-direction: column; gap: 12px; color: var(--dim); }
+.intro-text b { color: var(--text); }
+.intro-side { display: flex; flex-direction: column; gap: 10px; }
+.intro-side img { width: 100%; height: auto; display: block; border-radius: var(--radius); border: 1px solid var(--line); }
+.intro-continue { align-self: center; }
+@media (max-width: 560px) {
+  .intro-body { grid-template-columns: minmax(0, 1fr); }
+}
 
 a.ghost { display: inline-flex; align-items: center; text-decoration: none; font-weight: 600; letter-spacing: 0.08em; }
 
