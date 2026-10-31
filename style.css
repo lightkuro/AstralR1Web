@@ -460,8 +460,19 @@ kbd {
 .beta:hover { box-shadow: 0 0 28px rgba(12, 151, 233, 0.7); }
 .beta svg, .intro-close svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 
-/* First-visit popup: message on the left, preview and itch.io link on the right. */
-.intro-panel { position: relative; width: min(680px, 100%); padding-top: 48px; }
+/* First-visit popup: the message panel, with the preview and itch.io link on a panel to its right. */
+.intro-wrap { display: flex; gap: 16px; align-items: stretch; width: min(820px, 100%); }
+.intro-panel {
+  position: relative;
+  flex: 1;
+  justify-content: center;
+  padding: 48px 32px 28px;
+  text-align: center;
+  color: var(--dim);
+  gap: 16px;
+}
+.intro-panel h2 { font-size: clamp(22px, 3.2vw, 30px); letter-spacing: 0.14em; line-height: 1.2; }
+.intro-panel b { color: var(--text); }
 .intro-close {
   position: absolute;
   top: 10px;
@@ -475,14 +486,12 @@ kbd {
 }
 .intro-close:hover { color: var(--text); background: rgba(255, 255, 255, 0.06); }
 .intro-close svg { width: 18px; height: 18px; }
-.intro-body { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; }
-.intro-text { display: flex; flex-direction: column; gap: 12px; color: var(--dim); }
-.intro-text b { color: var(--text); }
-.intro-side { display: flex; flex-direction: column; gap: 10px; }
+.intro-play { align-self: center; margin-top: 8px; }
+.intro-side { width: min(340px, 100%); justify-content: center; padding: 16px; }
 .intro-side img { width: 100%; height: auto; display: block; border-radius: var(--radius); border: 1px solid var(--line); }
-.intro-continue { align-self: center; }
-@media (max-width: 560px) {
-  .intro-body { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 680px) {
+  .intro-wrap { flex-direction: column; align-items: center; }
+  .intro-side { width: 100%; }
 }
 
 a.ghost { display: inline-flex; align-items: center; text-decoration: none; font-weight: 600; letter-spacing: 0.08em; }
