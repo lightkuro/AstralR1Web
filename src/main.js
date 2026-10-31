@@ -649,7 +649,11 @@ $('pauseSettings').onclick = openSettings;
 $('closeSettings').onclick = () => show('settings', false);
 $('openCredits').onclick = () => show('credits', true);
 $('closeCredits').onclick = () => show('credits', false);
-for (const id of ['settings', 'credits']) $(id).addEventListener('pointerdown', e => { if (e.target.id === id) show(id, false); });
+
+// First visit: point people at the full game.
+if (!load('intro', {}).seen) { show('intro', true); save('intro', { seen: true }); $('introContinue').focus(); }
+$('introClose').onclick = $('introContinue').onclick = () => show('intro', false);
+for (const id of ['settings', 'credits', 'intro']) $(id).addEventListener('pointerdown', e => { if (e.target.id === id) show(id, false); });
 
 // --- Input -----------------------------------------------------------------------------------------
 
@@ -683,6 +687,7 @@ window.addEventListener('pointercancel', release);
 
 window.addEventListener('keydown', e => {
   if (!run || run.finished) {
+    if (!$('intro').hidden) { if (e.code === 'Escape') show('intro', false); return; }
     if (e.code === 'Enter' && !$('menu').hidden && !$('playBtn').disabled && $('settings').hidden) play();
     if (e.code === 'KeyR' && !$('results').hidden) retry();
     if (e.code === 'Escape') { if ($('settings').hidden && $('credits').hidden && !$('results').hidden) backToMenu(); show('settings', false); show('credits', false); }
