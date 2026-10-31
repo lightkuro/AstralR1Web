@@ -1,0 +1,7 @@
+# Repo files that should not be served as part of the site.
+.git
+.wrangler
+.assetsignore
+.gitignore
+wrangler.jsonc
+node_modules
