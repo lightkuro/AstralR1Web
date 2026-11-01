@@ -651,8 +651,8 @@ $('openCredits').onclick = () => show('credits', true);
 $('closeCredits').onclick = () => show('credits', false);
 
 // First visit: point people at the full game.
-if (!load('intro', {}).seen) { show('intro', true); save('intro', { seen: true }); $('introContinue').focus(); }
-$('introClose').onclick = $('introContinue').onclick = () => show('intro', false);
+if (!load('intro', {}).seen) { show('intro', true); save('intro', { seen: true }); $('introPlay').focus(); }
+$('introClose').onclick = $('introPlay').onclick = () => show('intro', false);
 for (const id of ['settings', 'credits', 'intro']) $(id).addEventListener('pointerdown', e => { if (e.target.id === id) show(id, false); });
 
 // --- Input -----------------------------------------------------------------------------------------
